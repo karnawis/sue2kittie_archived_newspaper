@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="news">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex, nofollow">
+	<title>Test Angular</title>
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+	<link href="fonts/pantographsans-font/font.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<!-- Set up Angular -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.0/angular.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-sanitize.js"></script>
+<!-- get json data from wordpress -->
+	<script type="text/javascript">
+	var news = angular.module('news', ['ngSanitize']);
+	news.controller('newsCtrl', function($scope, $http) {
+	$http.get("https://public-api.wordpress.com/rest/v1.1/sites/traffordparkline.wordpress.com/posts/").success(function (data) {
+	/*After Successfully fetching the data from JSON WP feed assign data to $scope object variable*/
+	$scope.newsfeed = data.posts;
+
+	app.controller('AppController', function ($scope) {
+	    $scope.toggle = true;
+	})
+
+
+	console.log(data);
+
+	});
+	});
+
+	</script>
+
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){wl=wl||[];wl.push(
+	{'gtm.start': new Date().getTime(),event:'gtm.js'}
+	);var f=d.getElementsByTagName(s)0,
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-WXFGVF');</script>
+	<!-- End Google Tag Manager -->
+
+</head>
+
+<body role="document" id="top" ng-controller="newsCtrl">
+
+
+<header>
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="row">
+      <div class="col-md-6 col-sm-5 col-xs-6 logo">
+    		<a  href="" class="navbar-brand logo" role="link">
+    			<img src="" width="100%" alt="logo"/>
+    		</a>
+  		</div>
+        <div class="col-md-6">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+		<div class="desktop-nav">
+			<div class="container">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+					<ul class="nav navbar-nav">
+						<li><a href="#">test</a></li>
+						<li><a href="#">test</a></li>
+						<li><a href="#">test</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+</header>
+
+
+<section>
+	<div id="ajax-content"></div>
+</section>
+<section id="main-content">
+    <div class="jumbotron">
+      <div class="container">
+      	<div class="row-jumbo">
+       		<img src="" alt="banner" width="100%" />
+       	</div>
+      </div>
+    </div>
+    <div class="container">
+		<div class="row">
+			<div class="col-sm-8">
+				<h1>Test </h1>
+			</div>
+			<div id="contact">
+					<div class="col-sm-4 grey">
+						<div class="news-feed" ng-repeat="data in newsfeed" ng-show="data.ID == 53">
+							<span><h3 ng-bind-html="data.title"></h3></span>
+							<span ng-bind-html="data.content"></span>
+						</div>
+					</div>
+			</div>
+			<div class="col-sm-12">
+
+				<div class="news-feed" ng-repeat="data in newsfeed" ng-show="data.ID != 53">
+
+					<span><h3 ng-bind-html="data.title"></h3></span>
+
+					<span ng-bind-html="data.excerpt"></span>
+
+					<div ng-show="showDetails"><span ng-bind-html="data.content"></span></div>
+
+					<a id="{{ data.ID }}" href="" ng-click="showDetails = ! showDetails"><button type="button" id="newsbtn" class="btn btn-primary btn-sm"  ng-show="data.content != 0" ng-click="toggle = !toggle">{{toggle && 'Close' || 'Read more'}}</button></a>
+
+				</div>
+
+			</div>
+	<div id="contact-mobile">
+			<div class="col-sm-4 grey">
+				<div class="news-feed" ng-repeat="data in newsfeed" ng-show="data.ID == 53">
+					<span><h3 ng-bind-html="data.title"></h3></span>
+					<span ng-bind-html="data.content"></span>
+				</div>
+		</div>
+	</div>
+	</div>
+</section>
+<footer>
+	<div class="container">
+		<div class="row">
+			<p>Footer footer Footer Fottere Footer Footeere &copy; 2018</p>
+		</div>
+	</div>
+</footer>
+
+</body>
+</html>
